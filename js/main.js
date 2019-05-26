@@ -4,18 +4,18 @@
 const config = {
 
     top: 10,
-    right: 100,
+    right: 30,
    bottom: 10,
-    left: 100,
+    left: 30,
 
 }
 
 var width;
 var height;
 //set width and height based on screen size
-window.innerWidth > 700 ? width = window.innerWidth -config.right - config.left : width = 600 -config.left - config.right;
+window.innerWidth > 700 ? width = window.innerWidth -config.right - config.left : width = 400;
 height = window.innerHeight;
-height = 500;
+// height = 500;
 
 
 const lineScaleX = d3.scaleLinear().domain([0, 2000000 ]).range([0,width-config.left -config.right-80])
@@ -77,12 +77,65 @@ const unqFirms = new Set (firms)
 var toolTip1 = d3.select('#line').append("div")
 .attr("id", "toolTip")
 .attr("class", "toolTip")
-.style("opacity", 0);
+.style("opacity", 1);
 
 
 
 const axisTop = d3.axisTop(lineScaleX).tickValues([1,1000, 500000, 1000000, 2000000, 3000000]).tickFormat(d3.format(".0s"));
 const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6])
+
+lineSvg.append('line')
+    .attr("x1", lineScaleX(0))
+    .attr("x2", lineScaleX(3000000))
+    .attr("y1", lineScaleY(.5))
+    .attr("y2", lineScaleY(.5))
+    .attr('stroke', "gray")
+    .attr("stroke-dasharray", "3 1")
+    .attr("stroke-width", 1)
+
+    // lineSvg.append('line')
+    // .attr("x1", lineScaleX(100000))
+    // .attr("x2", lineScaleX(3000000))
+    // .attr("y1", lineScaleY(.1))
+    // .attr("y2", lineScaleY(.1))
+    // .attr('stroke', "salmon")
+    // .attr("stroke-dasharray", "3 1")
+    // .attr("stroke-width", 2)
+
+    // lineSvg.append('line')
+    // .attr("x1", lineScaleX(0))
+    // .attr("x2", lineScaleX(3000000))
+    // .attr("y1", lineScaleY(.25))
+    // .attr("y2", lineScaleY(.25))
+    // .attr('stroke', "salmon")
+    // .attr("stroke-dasharray", "3 1")
+    // .attr("stroke-width", 2)
+
+    lineSvg.append('line')
+    .attr("id", "hoverLine")
+    .attr("x1", ()=>(`${0}px`))
+    .attr("x2", ()=>(`${0}px`))
+    .attr("y1", lineScaleY(0))
+    .attr("y2", lineScaleY(.65))
+    // .attr("stroke-dasharray", "3 1")
+    .attr("stroke-width", 1)
+    .attr("class", "clear")
+
+    lineSvg.append('line')
+    .attr("id", "hoverLineHor")
+    .attr("x1", ()=>(lineScaleX(0)))
+    .attr("x2", ()=>(lineScaleX(200000000)))
+    .attr("y1", lineScaleY(0))
+    .attr("y2", lineScaleY(0))
+    // .attr("stroke-dasharray", "3 1")
+    .attr("stroke-width", 1)
+    .attr("class", "clear")
+
+
+
+
+
+
 
 lineSvg.append('g')
 .attr("transform", "translate(50,23)")
@@ -103,31 +156,47 @@ lineSvg.append('g')
 // const barSvg = toolTip1.append('svg').attr("height", 200).attr("width", 200).attr('fill', 'rgba(255,255,255.6)')
 
 
-unqFirms.forEach(function (firm){
+unqFirms.forEach(function (firm, index){
 
     const firmData = lineData.filter(d=> d.firm == firm )
     
     
-  lineSvg.append('path')
+    const currentPath =   lineSvg.append('path')
     .datum(firmData)
     .attr("d", lineGenerator)
     .attr("class", "line")
     .attr("id", q=>`_${firm.replace(" ","").replace(" ","")}`)
     .attr("transform", "translate(50,0)")
+            //   .transition()
+            //   .delay(100*index)
+            //   .duration(200)
+
+
+
+              const currentPathClear =   lineSvg.append('path')
+              .datum(firmData)
+              .attr("d", lineGenerator)
+              .attr("class", "lineClear")
+              .attr("id", q=>`_clear${firm.replace(" ","").replace(" ","")}`)
+              .attr("transform", "translate(50,0)")
+                
+
 
 // const currentPath = lineSvg.select(`#_${firm.replace(" ","").replace(" ","")}`)
 
-    // var l1 = currentPath.node().getTotalLength();
-// console.log(l1)
-    // currentPath.attr('stroke-dasharray', `${l1} ${l1}`)
-    // .attr('stroke-dashoffset', l1)
-    // .style("opacity", 0 )
 
-    //       .transition()
-    //         //   .delay(l1/2)
-    //           .duration(l1*6)
-    //            .style("opacity", 1)
-    //           .attr('stroke-dashoffset', 0)
+
+//     var l1 = currentPath.node().getTotalLength();
+// console.log(l1)
+//     currentPath.attr('stroke-dasharray', `${l1} ${l1}`)
+//     .attr('stroke-dashoffset', l1)
+//     .style("opacity", 1 )
+
+//           .transition()
+//               .delay(300)
+//               .duration(12000)
+//                .style("opacity", 1)
+//               .attr('stroke-dashoffset', 0)
     
 
 
@@ -144,33 +213,57 @@ unqFirms.forEach(function (firm){
 
 
 
-   .on("mouseover", function(d) {		
+   currentPathClear.on("mousemove", function(d) {		
        
-       lineSvg.selectAll('path')
+       lineSvg.selectAll('path.line')
         .attr('class', "lineFade")
 
-       
+
+        // const currentFirm = this.getAttribute('id').slice(1,5);
+        const currentFirm = this.getAttribute('id').slice(6,10);
+console.log(currentFirm)
+       console.log(currentFirm.length)
+tt = document.querySelector('.toolTip')
+tt.innerHTML = `<h3>${ currentFirm}</h3>`;
     
         // .attr("class", "lineClear")
-const currentFirm = this.getAttribute('id').slice(1,5);
-console.log(currentFirm);
 
 
-d3.select(this)
+d3.select(`path#_${currentFirm}`)
 .attr("class", "lineSelect")
 
 
 
+lineSvg.select("#hoverLine") 
+.attr("x1", ()=>(`${d3.event.pageX-30}px`))
+.attr("x2", ()=>(`${d3.event.pageX-30}px`))
+
+.attr('class', "vis")
 
 
-// d3.select("div#toolTip")
-// .style("left", ()=>d3.select(this).attr("cx"))
-toolTip1.style("top", ()=>(`${d3.event.pageY+10}px`))
+lineSvg.select("#hoverLineHor") 
+
+.attr("y1", ()=>(`${d3.event.pageY}px`))
+.attr("y2", ()=>(`${d3.event.pageY}px`))
+.attr("stroke-width", 1)
+.attr("class", "vis")
+
+
+
+
+
+
+
+
+toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
 // .style("display", "absolute")
- .style("left", ()=>(`${d3.event.pageX}px`))
+ .style("left", ()=>(`${d3.event.pageX+15}px`))
 // .transition()
 //  .duration(300) // ms
  .style("opacity", 1); 
+
+
+
 
 
 
@@ -197,7 +290,6 @@ toolTip1.style("top", ()=>(`${d3.event.pageY+10}px`))
 
 const barData = lineData.filter(d=> d.firm == currentFirm )
 
-console.log(barData)
 
 
 
@@ -246,18 +338,24 @@ console.log(barData)
 
 
         }).on("mouseout", function(d) {		
-        d3.select(this)
-         .attr("class", "line")
+        // d3.select(this)
+        //  .attr("class", "lineClear")
 
 
-         lineSvg.selectAll('path')
+        const currentFirm = this.getAttribute('id').slice(6,10);
+
+         d3.select(`path#_${currentFirm}`)
+.attr("class", "line")
+
+         lineSvg.selectAll('path.lineFade')
          .attr('class', "line")
 
 
 
          toolTip1.style("opacity", 0);
 
-
+lineSvg.select('#hoverLine').attr("class", "clear");
+lineSvg.select('#hoverLineHor').attr("class", "clear");
 
          lineSvg.selectAll('rect')
     //      .transition()
@@ -266,10 +364,30 @@ console.log(barData)
      
         .remove()
          
-        lineSvg.selectAll('circle')
+        // lineSvg.selectAll('circle')
       
 
-         })								
+         })
+         
+//          .on("mousemove", function(d){
+    
+    
+
+
+//             // d3.select("div#toolTip")
+// // .style("left", ()=>d3.select(this).attr("cx"))
+// toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
+// // .style("display", "absolute")
+//  .style("left", ()=>(`${d3.event.pageX+15}px`))
+// // .transition()
+// //  .duration(300) // ms
+//  .style("opacity", 1); 
+
+
+
+//          }
+         
+//          )								
 
 
 

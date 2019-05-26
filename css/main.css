@@ -96,12 +96,44 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+/* variables */
+
+
+
+
+:root{
+    --backgroundColor: #444;
+
+--line-color:  rgba(255,255,255,.35);
+--line-color-fade:  rgba(255,255,255,.1);
+--headLineColor: white;
+--axisColor: white;
+
+
+
+
+--backgroundColor: whitesmoke;
+--line-color:  rgba(20,20,0,.3);
+--line-color-fade:  rgba(0,0,0,.1);
+--headLineColor:  #333;
+--axisColor: #333;
+
+--line-color:  rgba(18, 17, 5, 0.2);
+--line-color-fade: rgba(0,0,0, 0.1);
+
+
+}
+
+
+
+
 
 body{
 
     background-color: #edeae8;
     background: rgba(0,0,0, 0.8);
-
+    background: var(--backgroundColor);
+font-family: 'Franklin Gothic Medium', sans-serif;
     /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.12'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
     
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23FFF' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
@@ -111,11 +143,10 @@ justify-content: center;
 }
 
 
-h1{
+h1 {
 
 font-family:  "Fira Code", sans-serif;
-color: #444;
-color:white;
+color:var(--headlineColor);
 text-align: center;
 font-size: 3rem;
 font-weight: 900;
@@ -124,10 +155,8 @@ margin: 0;
 }
 
 h4 {
-
+    color:var(--headlineColor);
     font-family: "Fira Sans", sans-serif;
-    color: #444;
-    color: white;
     text-align: center;
     font-size: 2rem;
 font-weight: 100;
@@ -162,7 +191,7 @@ background-color: #edeae8;
     
 	scroll-snap-align: start;
 	
-
+margin: 0 auto;
     }
 
 .full {
@@ -219,9 +248,9 @@ cursor: crosshair;
 /* fill: #333; */
 /* fill: whitesmoke; */
 /* fill: none; */
-fill: white;
+fill: var(--axisColor);
 /* color: white; */
-stroke: white;
+stroke: var(--axisColor);
 /* stroke:none; */
 
 font-weight: 100;
@@ -232,17 +261,17 @@ font-size: .9rem;
 
 .toolTip {
 
-/* min-width: 300px; */
-/* min-height: 200px; */
+min-width: 100px; 
+ min-height: 4px;
 /* border: dashed .2px; */
-background-color:white;
-background-color: rgba(255,255,255,.5);
-background-color: rgba(0,0,0,.5);
-border-radius: 5px;
-opacity: .9;
+background-color: rgba(255,255,255,.9);
+box-shadow: 2px 3px 4px 2px rgba(0,0,0,.06);
+/* background-color: rgba(0,0,0,.5); */
+border-radius: 4px;
+/* opacity: .9; */
 z-index: 99;
 position: absolute;
-
+padding: 10px;
 }
 /* .axisClass path {
 
@@ -256,21 +285,50 @@ stroke: none;
     /* stroke: #555; */
     stroke: rgba(0,0,0,.25);
     stroke: rgba(255,255,255,.35);
+    stroke: var(--line-color);
     /* stroke: rgba(237, 70, 70, 0.1); */
     stroke-width: 3px;
     /* mix-blend-mode: multiply; */
     pointer-events: stroke;
-    transition: all .2s ease-in-out;
+    transition: all .1s ease-in-out;
     /* pointer-events: fill; SVG-only */
     /* pointer-events: none;  */
         }
 
+        .lineClear {
+    
+            stroke: rgba(237, 70, 70, 0);
+            stroke-width: 19px;
+            /* transform: scaleX(8); */
+            /* mix-blend-mode: multiply; */
+            pointer-events: stroke;
+            transition: all 0s ease-in-out;
+            /* pointer-events: fill; SVG-only */
+            /* pointer-events: none;  */
+                }
+
+
+
+
+.clear {
+
+stroke: rgba(0,0,0,0);
+
+}
+
+.vis {
+
+    stroke: rgba(0,0,0,.5);
+stroke: salmon;
+    }
+
+
+
+
 .lineFade {
 
-    stroke: rgba(0,0,0, 0.1);
-    stroke: rgba(255,255,255,.25);
-    stroke: rgba(255,255,255,.1);
-
+ 
+stroke: var(--line-color-fade);
     stroke-width: 2px;
 
 
@@ -287,7 +345,7 @@ stroke: none;
             /* pointer-events: stroke; SVG-only */
             /* pointer-events: fill; SVG-only */
             /* pointer-events: none; SVG-only */
-                }
+                /* } */
         
 
         .circle {

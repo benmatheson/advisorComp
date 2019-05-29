@@ -1,5 +1,15 @@
 
+d3.csv("dataSrc/acLevelGather.csv", function(lineData){
 
+
+// const firmSelected = "AB1"
+
+    function selectFunction (firmSelected) {
+
+console.log("run function")
+
+console.log("firmSelected")
+console.log(firmSelected)
 
 const config = {
 
@@ -14,7 +24,7 @@ var width;
 var height;
 //set width and height based on screen size
 window.innerWidth > 700 ? width = window.innerWidth -config.right - config.left : width = 400;
-height = window.innerHeight;
+height = window.innerHeight-90;
 // height = 500;
 
 
@@ -31,7 +41,6 @@ const lineSvg = d3.select('#line').append('svg').attr("height", height).attr("wi
 
 
 
-d3.csv("dataSrc/acLevelGather.csv", function(lineData){
 
 
 
@@ -81,8 +90,8 @@ var toolTip1 = d3.select('#line').append("div")
 
 
 
-const axisTop = d3.axisTop(lineScaleX).tickValues([1,1000, 500000, 1000000, 2000000, 3000000]).tickFormat(d3.format(".0s"));
-const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6])
+const axisTop = d3.axisTop(lineScaleX).tickValues([1, 500000, 1000000, 2000000, 3000000]).tickFormat(d3.format("$.0s"));
+const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6]).tickFormat(d3.format(".0%"))
 
 lineSvg.append('line')
     .attr("x1", lineScaleX(0))
@@ -118,7 +127,7 @@ lineSvg.append('line')
     .attr("y1", lineScaleY(0))
     .attr("y2", lineScaleY(.65))
     // .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 1)
+    .attr("stroke-width", 2)
     .attr("class", "clear")
 
     lineSvg.append('line')
@@ -128,7 +137,7 @@ lineSvg.append('line')
     .attr("y1", lineScaleY(0))
     .attr("y2", lineScaleY(0))
     // .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 1)
+    .attr("stroke-width", 2)
     .attr("class", "clear")
 
 
@@ -215,16 +224,23 @@ unqFirms.forEach(function (firm, index){
 
    currentPathClear.on("mousemove", function(d) {		
        
+    lineSvg.selectAll('text.firmText').remove();
+
        lineSvg.selectAll('path.line')
         .attr('class', "lineFade")
 
 
         // const currentFirm = this.getAttribute('id').slice(1,5);
-        const currentFirm = this.getAttribute('id').slice(6,10);
+        var currentFirm = this.getAttribute('id').slice(6,10);
 console.log(currentFirm)
        console.log(currentFirm.length)
+
+
+// currentFirm = firmSelected;
+
+
 tt = document.querySelector('.toolTip')
-tt.innerHTML = `<h3>${ currentFirm}</h3>`;
+tt.innerHTML = `<h5>Firm: </h5><h3>${ currentFirm}</h3>`;
     
         // .attr("class", "lineClear")
 
@@ -235,17 +251,17 @@ d3.select(`path#_${currentFirm}`)
 
 
 lineSvg.select("#hoverLine") 
-.attr("x1", ()=>(`${d3.event.pageX-30}px`))
-.attr("x2", ()=>(`${d3.event.pageX-30}px`))
+.attr("x1", ()=>(`${d3.event.pageX-10}px`))
+.attr("x2", ()=>(`${d3.event.pageX-10}px`))
 
 .attr('class', "vis")
 
 
 lineSvg.select("#hoverLineHor") 
 
-.attr("y1", ()=>(`${d3.event.pageY}px`))
+.attr("y1", ()=>(`${d3.event.pageY-60}px`))
 .attr("y2", ()=>(`${d3.event.pageY}px`))
-.attr("stroke-width", 1)
+.attr("stroke-width", 2)
 .attr("class", "vis")
 
 
@@ -284,6 +300,19 @@ toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
    
 
 
+// line
+var average = "above"
+Math.random() >=.5  ? average = "below" : "above"
+
+lineSvg.append('text') 
+.attr("opacity", 0)
+    .transition()
+        .duration(300)
+        .attr("opacity", 1)
+        .text(`${currentFirm} pays ${average} average, compared to similar-sized firms. `)
+        .attr("x", 400)
+        .attr("y", 500)
+        .attr("class", "firmText" )
 
 
 
@@ -301,8 +330,8 @@ const barData = lineData.filter(d=> d.firm == currentFirm )
         .enter()
         .append('rect')
         .attr("x", (d,i)=> lineScaleX(d.level))
-        .attr("x", (d,i)=> i*6+0)
-        .attr("y", d=> d.diffMedian >0 ? 100 - barScaleYPos(d.diffMedian): 100)
+        .attr("x", (d,i)=> i*6+500)
+        .attr("y", d=> d.diffMedian >0 ? 400 - barScaleYPos(d.diffMedian): 400)
         .attr("width", 5)
         .attr("height", 0)
         .transition()
@@ -341,7 +370,7 @@ const barData = lineData.filter(d=> d.firm == currentFirm )
         // d3.select(this)
         //  .attr("class", "lineClear")
 
-
+lineSvg.selectAll('text.firmText').remove();
         const currentFirm = this.getAttribute('id').slice(6,10);
 
          d3.select(`path#_${currentFirm}`)
@@ -430,6 +459,12 @@ const dotSvg = d3.select('#dot').append('svg').attr("height", height).attr("widt
 
 
 
+}//selectFunction
+
+// selectFunction()
+
+
+document.querySelector("#select").addEventListener("change", selectFunction("ABI212121"))
 
 })//d3.csv
 

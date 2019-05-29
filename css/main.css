@@ -164,6 +164,29 @@ padding-bottom: 0;
 font-style: italic;
 }
 
+
+h3 {
+
+font-size: 2.3rem;
+margin-bottom: -10px;
+margin-top: -5px;
+display: inline;
+}
+
+h5 {
+
+    color:var(--headlineColor);
+    font-family: "Fira Sans", sans-serif;
+    text-align: left;
+    font-size: 1.9rem;
+    /* padding-bottom: -150px; */
+    margin-bottom: -10px;
+font-weight: 200;
+display: inline;
+
+}
+
+
    .svgBg {
 fill:none;
 /* background: blue; */
@@ -242,6 +265,17 @@ cursor: crosshair;
 }
 
 
+.firmText {
+
+font-family: "Fira Code", monospace;
+font-size: 1.4rem;
+z-index: 100;
+stroke:#333;
+fill: #333;
+
+}
+
+
 .axisClass {
 
 /* color: blue; */
@@ -256,13 +290,13 @@ stroke: var(--axisColor);
 font-weight: 100;
 /* font-style:italic; */
 font-family: "Fira Code";
-font-size: .9rem;
+font-size: 1.2rem;
 }
 
 .toolTip {
 
-min-width: 100px; 
- min-height: 4px;
+min-width: 120px; 
+ /* min-height: 4px; */
 /* border: dashed .2px; */
 background-color: rgba(255,255,255,.9);
 box-shadow: 2px 3px 4px 2px rgba(0,0,0,.06);
@@ -295,6 +329,17 @@ stroke: none;
     /* pointer-events: none;  */
         }
 
+
+        .select {
+
+min-width: 400px;
+min-height: 10px;
+padding: 5px;
+font-size: 1.6rem;
+margin: 10px;
+
+
+        }
         .lineClear {
     
             stroke: rgba(237, 70, 70, 0);
@@ -320,6 +365,7 @@ stroke: rgba(0,0,0,0);
 
     stroke: rgba(0,0,0,.5);
 stroke: salmon;
+stroke: rgb(255, 90, 29);
     }
 
 
@@ -363,10 +409,10 @@ stroke: var(--line-color-fade);
             /* stroke: #555; */
             stroke: rgb(37, 228, 200);
             /* stroke: rgb(37, 228, 200); */
-            stroke: rgba(37, 107, 228, 0.9);
+            stroke: rgba(37, 107, 228, 0.7);
             /* stroke: rgba(250, 239, 114,.8); */
             /* stroke: rgba(240, 103, 18, 0.645); */
-            stroke-width: 5px;
+            stroke-width: 6px;
             transition: all ease-in .07s;
             /* pointer-events: none; */
             /* animation: lineAni .06s ease; */

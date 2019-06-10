@@ -1,8 +1,11 @@
 
-d3.csv("dataSrc/acLevelGather.csv", function(lineData){
+d3.csv("dataSrc/acLevelGather_6_08.csv", function(lineData){
 
 
-// const firmSelected = "AB1"
+
+
+
+    // const firmSelected = "AB1"
 
     function selectFunction (firmSelected) {
 
@@ -53,10 +56,26 @@ d.level = +d.level
 
 
 
+const firmExtra = lineData.filter(d=> d.level ==1)
 
-// console.table(lineData)
 
-lineData = lineData.filter(d=> d.level <=4000000)
+console.log(firmExtra)
+
+
+
+
+
+
+// lineData = lineData.filter(d=> d.level <=4000000)
+
+
+// lineData = lineData.filter(d=> d.num_advisors =="<25" || d.num_advisors=="< 25")
+// lineData = lineData.filter(d=> d.num_advisors ==">100" || d.num_advisors=="> 100")
+// lineData = lineData.filter(d=> d.num_advisors =="25-100")
+
+// lineData
+
+
 
 
 const lineGenerator =  d3.line()
@@ -79,8 +98,13 @@ const lineGenerator =  d3.line()
 // }
 
 const firms = lineData.map(d=> d.firm)
+// const firms = lineData.map(d=> d.id_code_multiple)
+// const unqFirms = new Set (firms)
 const unqFirms = new Set (firms)
 
+
+console.log("unqFirms")
+console.log(unqFirms)
 
 
 var toolTip1 = d3.select('#line').append("div")
@@ -93,14 +117,14 @@ var toolTip1 = d3.select('#line').append("div")
 const axisTop = d3.axisTop(lineScaleX).tickValues([1, 500000, 1000000, 2000000, 3000000]).tickFormat(d3.format("$.0s"));
 const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6]).tickFormat(d3.format(".0%"))
 
-lineSvg.append('line')
-    .attr("x1", lineScaleX(0))
-    .attr("x2", lineScaleX(3000000))
-    .attr("y1", lineScaleY(.5))
-    .attr("y2", lineScaleY(.5))
-    .attr('stroke', "gray")
-    .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 1)
+// lineSvg.append('line')
+//     .attr("x1", lineScaleX(0))
+//     .attr("x2", lineScaleX(3000000))
+//     .attr("y1", lineScaleY(.5))
+//     .attr("y2", lineScaleY(.5))
+//     .attr('stroke', "gray")
+//     .attr("stroke-dasharray", "3 1")
+//     .attr("stroke-width", 1)
 
     // lineSvg.append('line')
     // .attr("x1", lineScaleX(100000))
@@ -146,19 +170,53 @@ lineSvg.append('line')
 
 
 
-lineSvg.append('g')
-.attr("transform", "translate(50,23)")
+const bottomAxis = lineSvg.append('g')
+.attr("transform", `translate(100,${height+5})`)
 .attr('class', "axisClass")
     .call(axisTop)
+
+    bottomAxis
     .select(".domain").remove()
 
+bottomAxis.selectAll(".tick text")
+    .attr('class', "axisClass")
 
+lineSvg.append('g')
+        .append('text')
+        // .attr("transform", "translate(50,0)")
+        .attr("class", "axisLabelClass")
+        // .attr("class", "axisLabelClass")
+        .attr("x", width/2-100)
+        .attr("y", 20)
+        .text('Gross Production')
+
+        lineSvg.append('g')
+        .append('text')
+        // .attr("transform", "translate(50,0)")
+        // .attr("class", "axisClass")
+        .style('text-anchor', 'middle')
+        .attr("x",40)
+        .attr("y", height/2)
+        .text('Effective Annual Payout Rate')
+        .attr("transform", `rotate(-90 40  ${height/2})`)
+        .attr("class", "axisLabelClass")
+
+
+
+
+
+
+        const leftAxis = 
     lineSvg.append('g')
-    .attr("transform", "translate(50,0)")
+    .attr("transform", "translate(100,0)")
     .attr('class', "axisClass")
         .call(axisLeft)
+
+        leftAxis
         .select(".domain").remove()
     
+        leftAxis.selectAll('.tick text')
+        .attr("class", "axisClass")
 
 
 
@@ -175,7 +233,10 @@ unqFirms.forEach(function (firm, index){
     .attr("d", lineGenerator)
     .attr("class", "line")
     .attr("id", q=>`_${firm.replace(" ","").replace(" ","")}`)
-    .attr("transform", "translate(50,0)")
+    // .attr("id", q=>`_${firm}`)
+    // .attr("position", q=>`_${firm.Role}`)
+
+    .attr("transform", "translate (100,0)")
             //   .transition()
             //   .delay(100*index)
             //   .duration(200)
@@ -187,7 +248,7 @@ unqFirms.forEach(function (firm, index){
               .attr("d", lineGenerator)
               .attr("class", "lineClear")
               .attr("id", q=>`_clear${firm.replace(" ","").replace(" ","")}`)
-              .attr("transform", "translate(50,0)")
+              .attr("transform", "translate(100,0)")
                 
 
 
@@ -231,7 +292,8 @@ unqFirms.forEach(function (firm, index){
 
 
         // const currentFirm = this.getAttribute('id').slice(1,5);
-        var currentFirm = this.getAttribute('id').slice(6,10);
+        var currentFirm = this.getAttribute('id').slice(6);
+        // var currentFirm = this.getAttribute('id');
 console.log(currentFirm)
        console.log(currentFirm.length)
 
@@ -239,8 +301,17 @@ console.log(currentFirm)
 // currentFirm = firmSelected;
 
 
+
+
+const firmInfo = firmExtra.filter(d=>d.firm ==currentFirm)
+
+console.log(firmInfo)
+const role= firmInfo[0].Role
+const firmSize = firmInfo[0].num_advisors
+
+
 tt = document.querySelector('.toolTip')
-tt.innerHTML = `<h5>Firm: </h5><h3>${ currentFirm}</h3>`;
+tt.innerHTML = `<h5>Firm: <span class="ttValue">${ currentFirm}</span></h5> <h5>Firm Size: <span class="ttValue">${firmSize} employees</h5><h5>Position:<span class="ttValue"> ${role}</span></h5>`;
     
         // .attr("class", "lineClear")
 
@@ -250,19 +321,19 @@ d3.select(`path#_${currentFirm}`)
 
 
 
-lineSvg.select("#hoverLine") 
-.attr("x1", ()=>(`${d3.event.pageX-10}px`))
-.attr("x2", ()=>(`${d3.event.pageX-10}px`))
+// lineSvg.select("#hoverLine") 
+// .attr("x1", ()=>(`${d3.event.pageX-10}px`))
+// .attr("x2", ()=>(`${d3.event.pageX-10}px`))
 
-.attr('class', "vis")
+// .attr('class', "vis")
 
 
-lineSvg.select("#hoverLineHor") 
+// lineSvg.select("#hoverLineHor") 
 
-.attr("y1", ()=>(`${d3.event.pageY-60}px`))
-.attr("y2", ()=>(`${d3.event.pageY}px`))
-.attr("stroke-width", 2)
-.attr("class", "vis")
+// .attr("y1", ()=>(`${d3.event.pageY-60}px`))
+// .attr("y2", ()=>(`${d3.event.pageY}px`))
+// .attr("stroke-width", 2)
+// .attr("class", "vis")
 
 
 
@@ -304,15 +375,15 @@ toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
 var average = "above"
 Math.random() >=.5  ? average = "below" : "above"
 
-lineSvg.append('text') 
-.attr("opacity", 0)
-    .transition()
-        .duration(300)
-        .attr("opacity", 1)
-        .text(`${currentFirm} pays ${average} average, compared to similar-sized firms. `)
-        .attr("x", 400)
-        .attr("y", 500)
-        .attr("class", "firmText" )
+// lineSvg.append('text') 
+// .attr("opacity", 0)
+//     .transition()
+//         .duration(300)
+//         .attr("opacity", 1)
+//         .text(`${currentFirm} pays ${average} average, compared to similar-sized firms. `)
+//         .attr("x", 400)
+//         .attr("y", 500)
+//         .attr("class", "firmText" )
 
 
 
@@ -371,7 +442,8 @@ const barData = lineData.filter(d=> d.firm == currentFirm )
         //  .attr("class", "lineClear")
 
 lineSvg.selectAll('text.firmText').remove();
-        const currentFirm = this.getAttribute('id').slice(6,10);
+        // const currentFirm = this.getAttribute('id').slice(6,10);
+        const currentFirm = this.getAttribute('id').slice(6);
 
          d3.select(`path#_${currentFirm}`)
 .attr("class", "line")
@@ -433,7 +505,7 @@ lineSvg.select('#hoverLineHor').attr("class", "clear");
 ////the dot
 
 
-const dotSvg = d3.select('#dot').append('svg').attr("height", height).attr("width", width)
+// const dotSvg = d3.select('#dot').append('svg').attr("height", height).attr("width", width)
 
 
 
@@ -461,10 +533,10 @@ const dotSvg = d3.select('#dot').append('svg').attr("height", height).attr("widt
 
 }//selectFunction
 
-// selectFunction()
+selectFunction()
 
 
-document.querySelector("#select").addEventListener("change", selectFunction("ABI212121"))
+// document.querySelector("#select").addEventListener("change", selectFunction("ABI212121"))
 
 })//d3.csv
 

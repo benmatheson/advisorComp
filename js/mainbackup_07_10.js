@@ -7,15 +7,12 @@ d3.csv("dataSrc/acLevelGather_6_08.csv", function(lineData){
 
     // const firmSelected = "AB1"
 
+    function selectFunction (firmSelected) {
 
+console.log("run function")
 
-
-    var toolTip1 = d3.select('#line').append("div")
-    .attr("id", "toolTip")
-    .attr("class", "toolTip")
-    .style("opacity", 1);
-
-
+console.log("firmSelected")
+console.log(firmSelected)
 
 const config = {
 
@@ -42,32 +39,10 @@ const barScaleYNeg = d3.scaleLinear().domain([0,-.5 ]).range([0,100])
 
 
 
+const lineSvg = d3.select('#line').append('svg').attr("height", height).attr("width", width).attr('class', "svgBg")
 
 
 
-
-    function selectFunction (firmSelected) {
-
-
-        d3.selectAll('svg').remove()
-        // document.querySelector('.toolTip').remove()
-
-        const lineSvg = d3.select('#line').append('svg').attr("height", height).attr("width", width).attr('class', "svgBg")
-
-console.log(this)
-
-// var value = this.options[this.selectedIndex].value;
-// console.log("VALUE")
-// console.log(value)
-
-
-// console.log("run function")
-
-// console.log("firmSelected")
-
-const firmSel = document.getElementById('select1')
-console.log(firmSel)
-console.log(firmSel.value)
 
 
 
@@ -80,7 +55,11 @@ d.level = +d.level
 })
 
 
+
 const firmExtra = lineData.filter(d=> d.level ==1)
+
+
+console.log(firmExtra)
 
 
 
@@ -118,30 +97,20 @@ const lineGenerator =  d3.line()
 //     .attr("id", q=>`_${d.replace(" ","").replace(" ","")}`)
 // }
 
-console.log(lineData)
-
-firmSel.value == "all" ? filtFirms = lineData : filtFirms = lineData.filter(d=> d.num_advisors == firmSel.value)
-const firms = filtFirms.map(d=> d.firm)
+const firms = lineData.map(d=> d.firm)
 // const firms = lineData.map(d=> d.id_code_multiple)
 // const unqFirms = new Set (firms)
-
-
-
-
-
-
-unqFirms = new Set (firms)
+const unqFirms = new Set (firms)
 
 
 console.log("unqFirms")
 console.log(unqFirms)
 
 
-// unqFirms = unqFirms.filter(d=> d.firmSize== firmSel.value)
-
-
-
-
+var toolTip1 = d3.select('#line').append("div")
+.attr("id", "toolTip")
+.attr("class", "toolTip")
+.style("opacity", 1);
 
 
 
@@ -325,7 +294,8 @@ unqFirms.forEach(function (firm, index){
         // const currentFirm = this.getAttribute('id').slice(1,5);
         var currentFirm = this.getAttribute('id').slice(6);
         // var currentFirm = this.getAttribute('id');
-
+console.log(currentFirm)
+       console.log(currentFirm.length)
 
 
 // currentFirm = firmSelected;
@@ -569,7 +539,7 @@ lineSvg.select('#hoverLineHor').attr("class", "clear");
 selectFunction()
 
 
-document.querySelector("#select1").addEventListener("change", selectFunction)
+// document.querySelector("#select").addEventListener("change", selectFunction("ABI212121"))
 
 })//d3.csv
 

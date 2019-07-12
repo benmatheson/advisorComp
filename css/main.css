@@ -356,7 +356,7 @@ stroke: none;
     stroke-width: 4px;
     /* mix-blend-mode: multiply; */
     pointer-events: stroke;
-    transition: all .1s ease-in-out;
+    /* transition: all .1s ease-in-out; */
     /* pointer-events: fill; SVG-only */
     /* pointer-events: none;  */
         }
@@ -366,20 +366,21 @@ stroke: none;
 
 min-width: 400px;
 min-height: 10px;
-padding: 5px;
-font-size: 1.6rem;
+padding: 98px;
+font-size: 2rem;
 margin: 10px;
+font-weight: 600;
 
 
         }
         .lineClear {
     
-            stroke: rgba(237, 70, 70, 0);
-            stroke-width: 4px;
+            stroke: rgba(237, 70, 70, 0.0);
+            stroke-width: 12px;
             /* transform: scaleX(8); */
             /* mix-blend-mode: multiply; */
             pointer-events: stroke;
-            transition: all 0s ease-in-out;
+            /* transition: all .5s ease-in-out; */
             /* pointer-events: fill; SVG-only */
             /* pointer-events: none;  */
                 }

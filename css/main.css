@@ -363,13 +363,18 @@ stroke: none;
 
 
         .select {
-
+            /* -webkit-appearance: none; */
+            /* -moz-appearance: none; */
+            /* appearance: none; */
+        
 min-width: 400px;
 min-height: 10px;
-padding: 98px;
+padding: 18px;
 font-size: 2rem;
 margin: 10px;
 font-weight: 600;
+background-color: white;
+border: solid 2px #777;
 
 
         }

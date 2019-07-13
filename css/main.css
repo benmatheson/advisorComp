@@ -380,11 +380,14 @@ border: solid 2px #777;
         }
         .lineClear {
     
-            stroke: rgba(237, 70, 70, 0.0);
-            stroke-width: 12px;
+            stroke: rgba(237, 70, 70, 0);
+            stroke-width: 8px;
             /* transform: scaleX(8); */
             /* mix-blend-mode: multiply; */
             pointer-events: stroke;
+            /* pointer-events: visible; */
+            /* pointer-events: all; */
+            pointer-events: auto;
             /* transition: all .5s ease-in-out; */
             /* pointer-events: fill; SVG-only */
             /* pointer-events: none;  */

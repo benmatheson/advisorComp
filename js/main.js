@@ -368,14 +368,14 @@ d3.select(`path#_${currentFirm}`)
 
 
 
-console.log(d3.event.pageX)
-console.log(width)
+// console.log(d3.event.pageX)
+// console.log(width)
 
 
 toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
 // .style("display", "absolute")
- .style("left", ()=>((d3.event.pageX) < ((width-100)/2) ? `${d3.event.pageX+15}px` : `${d3.event.pageX-205}px`))
-//  .style("left", ()=>(`${d3.event.pageX+5}px`))
+//  .style("left", ()=>((d3.event.pageX) < ((width-100)/2) ? `${d3.event.pageX+15}px` : `${d3.event.pageX-205}px`))
+ .style("left", ()=>(`${d3.event.pageX+5}px`))
 // .transition()
 //  .duration(300) // ms
  .style("opacity", 1); 

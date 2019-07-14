@@ -313,7 +313,8 @@ font-size: 1.2rem;
 
 /* font-style: italic; */
 fill: #222;
-font-family: "Fira Mono";
+/* font-family: "Fira Mono", monospace; */
+font-family: Helvetica, sans-serif;
 font-size: 1.2rem;
 font-weight: 600;
 

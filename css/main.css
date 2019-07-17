@@ -309,12 +309,19 @@ font-size: 1.2rem;
 }
 
 
+
+.tick line {
+    stroke: none
+    
+    
+    }
+    
 .axisLabelClass {
 
 /* font-style: italic; */
 fill: #222;
 /* font-family: "Fira Mono", monospace; */
-font-family: Helvetica, sans-serif;
+font-family: Helvetica, Arial, sans-serif;
 font-size: 1.2rem;
 font-weight: 600;
 

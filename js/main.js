@@ -157,23 +157,25 @@ const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6]).tickFo
 //     .attr("stroke-dasharray", "3 1")
 //     .attr("stroke-width", 1)
 
-    // lineSvg.append('line')
-    // .attr("x1", lineScaleX(100000))
-    // .attr("x2", lineScaleX(3000000))
-    // .attr("y1", lineScaleY(.1))
-    // .attr("y2", lineScaleY(.1))
-    // .attr('stroke', "salmon")
-    // .attr("stroke-dasharray", "3 1")
-    // .attr("stroke-width", 2)
+    lineSvg.append('line')
+    .attr("x1", lineScaleX(500000))
+    .attr("x2", lineScaleX(500000))
+    .attr("y1", lineScaleY(.0))
+    .attr("y2", lineScaleY(1))
+    .attr('stroke', "lightgray")
+    .attr("stroke-dasharray", "3 1")
+    .attr("stroke-width", 1)
+    .attr("transform", "translate (110,0)")
 
-    // lineSvg.append('line')
-    // .attr("x1", lineScaleX(0))
-    // .attr("x2", lineScaleX(3000000))
-    // .attr("y1", lineScaleY(.25))
-    // .attr("y2", lineScaleY(.25))
-    // .attr('stroke', "salmon")
-    // .attr("stroke-dasharray", "3 1")
-    // .attr("stroke-width", 2)
+
+    lineSvg.append('line')
+    .attr("x1", lineScaleX(100000))
+    .attr("x2", lineScaleX(3000000))
+    .attr("y1", lineScaleY(.25))
+    .attr("y2", lineScaleY(.25))
+    .attr('stroke', "lightgray")
+    .attr("stroke-dasharray", "3 1")
+    .attr("stroke-width", 1)
 
     lineSvg.append('line')
     .attr("id", "hoverLine")
@@ -239,7 +241,7 @@ lineSvg.append('g')
 
         const leftAxis = 
     lineSvg.append('g')
-    .attr("transform", "translate(100,0)")
+    .attr("transform", "translate(100,-10)")
     .attr('class', "axisClass")
         .call(axisLeft)
 
@@ -267,7 +269,7 @@ unqFirms.forEach(function (firm, index){
     // .attr("id", q=>`_${firm}`)
     // .attr("position", q=>`_${firm.Role}`)
 
-    .attr("transform", "translate (100,0)")
+    .attr("transform", "translate (110,-10)")
             //   .transition()
             //   .delay(100*index)
             //   .duration(200)
@@ -279,7 +281,7 @@ unqFirms.forEach(function (firm, index){
               .attr("d", lineGenerator)
               .attr("class", "lineClear")
               .attr("id", q=>`_clear${firm.replace(" ","").replace(" ","")}`)
-              .attr("transform", "translate(100,0)")
+              .attr("transform", "translate(110,-10)")
                 
 
 

@@ -170,45 +170,45 @@ const axisLeft = d3.axisLeft(lineScaleY).tickValues([0,.25,.35, .45, .6]).tickFo
 //     .attr("stroke-dasharray", "3 1")
 //     .attr("stroke-width", 1)
 
-    lineSvg.append('line')
-    .attr("x1", lineScaleX(500000))
-    .attr("x2", lineScaleX(500000))
-    .attr("y1", lineScaleY(.0))
-    .attr("y2", lineScaleY(1))
-    .attr('stroke', "lightgray")
-    .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 1)
-    .attr("transform", "translate (110,0)")
-
-
-    lineSvg.append('line')
-    .attr("x1", lineScaleX(100000))
-    .attr("x2", lineScaleX(3000000))
-    .attr("y1", lineScaleY(.25))
-    .attr("y2", lineScaleY(.25))
-    .attr('stroke', "lightgray")
-    .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 1)
-
-    lineSvg.append('line')
-    .attr("id", "hoverLine")
-    .attr("x1", ()=>(`${0}px`))
-    .attr("x2", ()=>(`${0}px`))
-    .attr("y1", lineScaleY(0))
-    .attr("y2", lineScaleY(.65))
+    // lineSvg.append('line')
+    // .attr("x1", lineScaleX(500000))
+    // .attr("x2", lineScaleX(500000))
+    // .attr("y1", lineScaleY(.0))
+    // .attr("y2", lineScaleY(1))
+    // .attr('stroke', "lightgray")
     // .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 2)
-    .attr("class", "clear")
+    // .attr("stroke-width", 1)
+    // .attr("transform", "translate (110,0)")
 
-    lineSvg.append('line')
-    .attr("id", "hoverLineHor")
-    .attr("x1", ()=>(lineScaleX(0)))
-    .attr("x2", ()=>(lineScaleX(200000000)))
-    .attr("y1", lineScaleY(0))
-    .attr("y2", lineScaleY(0))
+
+    // lineSvg.append('line')
+    // .attr("x1", lineScaleX(100000))
+    // .attr("x2", lineScaleX(3000000))
+    // .attr("y1", lineScaleY(.25))
+    // .attr("y2", lineScaleY(.25))
+    // .attr('stroke', "lightgray")
     // .attr("stroke-dasharray", "3 1")
-    .attr("stroke-width", 2)
-    .attr("class", "clear")
+    // .attr("stroke-width", 1)
+
+    // lineSvg.append('line')
+    // .attr("id", "hoverLine")
+    // .attr("x1", ()=>(`${0}px`))
+    // .attr("x2", ()=>(`${0}px`))
+    // .attr("y1", lineScaleY(0))
+    // .attr("y2", lineScaleY(.65))
+    // // .attr("stroke-dasharray", "3 1")
+    // .attr("stroke-width", 2)
+    // .attr("class", "clear")
+
+    // lineSvg.append('line')
+    // .attr("id", "hoverLineHor")
+    // .attr("x1", ()=>(lineScaleX(0)))
+    // .attr("x2", ()=>(lineScaleX(200000000)))
+    // .attr("y1", lineScaleY(0))
+    // .attr("y2", lineScaleY(0))
+    // // .attr("stroke-dasharray", "3 1")
+    // .attr("stroke-width", 2)
+    // .attr("class", "clear")
 
 
 
@@ -235,7 +235,7 @@ lineSvg.append('g')
         // .attr("class", "axisLabelClass")
         .attr("x", width/2-100)
         .attr("y", 25)
-        .text('Gross Production')
+        .text('Gross Annual Production Amount')
 
         lineSvg.append('g')
         .append('text')
@@ -351,15 +351,17 @@ unqFirms.forEach(function (firm, index){
 
 
 
-
 const firmInfo = firmExtra.filter(d=>d.firm ==currentFirm)
 
-const role= firmInfo[0].Role
+// const role= firmInfo[0].Role
+const role= firmInfo[0].role_cat
+// console.log(firmInfo[0])
+
 const firmSize = firmInfo[0].num_advisors
 
 
 tt = document.querySelector('.toolTip')
-tt.innerHTML = `<h5>Firm: <span class="ttValue">${ currentFirm}</span></h5> <h5>Firm Size: <span class="ttValue">${firmSize} employees</h5><h5>Position:<span class="ttValue"> ${role}</span></h5>`;
+tt.innerHTML = `<h5>Firm: <span class="ttValue">${currentFirm.split("_")[0]}</span></h5> <h5>Firm Size: <span class="ttValue">${firmSize} advisors</h5><h5>Role:<span class="ttValue"> ${role}</span></h5>`;
     
         // .attr("class", "lineClear")
 
@@ -389,7 +391,7 @@ tt.innerHTML = `<h5>Firm: <span class="ttValue">${ currentFirm}</span></h5> <h5>
 // console.log(width)
 
 
-console.log(d3.event.pageX)
+// console.log(d3.event.pageX)
 
 toolTip1.style("top", ()=>(`${d3.event.pageY-50}px`))
 // .style("display", "absolute")
